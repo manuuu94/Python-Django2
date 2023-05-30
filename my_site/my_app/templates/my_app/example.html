@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<!-- load static example without blocks -->
+    {% load static %}
+    <script src="{% static 'my_app/prueba.js' %}"></script>
+
+
+</head>
+<body>
+    <h1>EXAMPLE HTML TEMPLATES CONNECTED !!</h1>
+
+
+    <button onclick="(suma(3,4))">clic para sumar</button>
+
+
+
+<h1><a href="{% url 'my_app:variable' %}">Click here to nav to Variable.html</a></h1> <!--my_app was registered as the namespace:variable is the path name-->
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<!-- load static example with blocks -->
+
+<script src="{% static 'my_app/prueba.js' %}"></script> 
+
+
+THIS WILL SHOW ONLY IN THE BASE PAGE. IS A BLOCK SPECIFIC FOR THIS HTML. 
+
+<h1>Variables!!</h1>
+    
+{%if first_name == "manuel" %}
+<h2>My name is {{first_name |upper}} {{last_name|lower |capfirst}}</h2> <!-- | is how to use filters, that edit the context value -->
+{%endif %}
+
+<h2>{{list}}</h2>
+<h2>{{list.0}}</h2>
+
+<h1>{{dict}}</h1>
+<h2>{{dict.dict_ins_key2}}</h2>
+    {# this is a django comment #}
+<h2>{# this is a comment #}</h2>
+<!-- html comment -->
+
+<ul>
+    {% for n in list %}
+        <li>{{ n }}</li>
+    {% endfor %}
+</ul>
+
+<button onclick="suma(3,4)">clic para sumar</button>
+
+<h1><a href="{% url 'base' %}">Click here to nav to Base.html</a></h1> 
+
+{% endblock %}

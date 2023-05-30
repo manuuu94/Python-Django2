@@ -1,0 +1,19 @@
+{%extends 'chatGPT/base.html'%}
+
+
+
+{%block content%}
+
+<h3>Ask me something:</h3>
+<form action="" method="post">
+    {%csrf_token%}
+    <input type="text" class="form-control" name="user_input">
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>
+
+{%if response%}
+<div>
+    {{response|safe}}
+</div>
+{%endif%}
+{%endblock%}
