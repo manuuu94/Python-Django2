@@ -26,3 +26,7 @@ urlpatterns = [
 #python.exe -m pip install --upgrade openai
 #python.exe -m pip install python-dotenv    to be able to read the openai key
 #python.exe -m pip install --upgrade pip
+#pip install djongo
+
+
+
