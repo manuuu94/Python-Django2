@@ -9,5 +9,5 @@ class RandQ(models.Model):
     answer = models.CharField(max_length=500,null=True,blank=True)
 
     def __str__(self):
-        return f"{self.question} : {self.answer}"
+        return f"{self.question}"
     

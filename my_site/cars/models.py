@@ -11,3 +11,8 @@ class Car(models.Model):
         return f"{self.brand} {self.year}"
     
 
+
+class Review(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    stars = models.IntegerField()

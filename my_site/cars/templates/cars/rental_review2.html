@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{%block content%}
+
+{%load static%}
+<link rel="stylesheet" href="{% static 'cars/custom.css' %}">
+
+
+<h1> RENTAL_REVIEW 2</h1>
+<br>
+<div class="container myform">
+<form action="" method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+
+    <input type="submit" value="Click">
+</form>
+</div>
+<br>
+<div class="container">
+    <form action="" method="POST">
+        {%csrf_token%}
+        {{form.first_name.label_tag}}{{form.first_name}}
+        {{form.last_name.label_tag}}{{form.last_name}}
+        {{form.stars.label_tag}}{{form.stars}}
+
+        <input type="submit" value="Click">
+    </form>
+</div>
+<br>
+<div class="container">
+    <form action="" method="POST">
+    {% csrf_token %}
+    {%for field in form%}
+    <div class="form-control">
+        {{field.label_tag}}{{field}}
+    </div>
+    {%endfor%}
+    <input type="submit" value="Click">
+    </form>
+</div>
+<br>
+
+<div class="container">
+    <form action="" method="POST">
+    {% csrf_token %}
+    {%for field in form%}
+    <div class="mb-3">
+        {{field.label_tag}}
+    </div>
+        {{field}}
+    {%endfor%}
+    <br>
+    <input type="submit" value="Click">
+    </form>
+</div>
+{%endblock%}

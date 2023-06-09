@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from . import models
+from .forms import ReviewForm, ReviewForm2
 
 # Create your views here.
 
@@ -40,7 +41,33 @@ def DeleteCar(request):
 
 
 
+def ThankYou(request):
+    return render(request,'cars/thank_you.html')
 
+
+
+def RentalReview(request):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            return redirect(reverse('cars:thankyou'))
+    else:
+        form = ReviewForm()
+    return render(request,'cars/rental_review.html',context={'form':form})
+
+
+
+def RentalReview2(request):
+    if request.method == 'POST':
+        form = ReviewForm2(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            form.save()
+            return redirect(reverse('cars:thankyou'))
+    else:
+        form = ReviewForm2()
+    return render(request,'cars/rental_review2.html',context={'form':form})
 
 
 

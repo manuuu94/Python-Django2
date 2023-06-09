@@ -1,0 +1,21 @@
+{%extends 'chatGPT/base.html'%}
+
+{%block content%}
+    
+    <div class="container">
+        <h1>WELCOME!!!! </h1>
+
+        <h1>LIST </h1>
+        
+        <ul>
+        {%for question in questions%}
+        <li>
+            <a href="#">{{question}}</a>
+        </li>
+        {%endfor%}
+        </ul>
+        
+        
+        </div>
+
+{%endblock%}
