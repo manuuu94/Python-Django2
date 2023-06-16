@@ -13,7 +13,9 @@
 <form action="" method="POST">
     {%csrf_token%}
     {{form.as_p}}
-
+<!-- to show error based on the validations-->
+    {{field.errors}}
+    
     <input type="submit" value="Click">
 </form>
 </div>

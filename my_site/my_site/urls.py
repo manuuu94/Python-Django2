@@ -30,6 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('office/',include('office.urls')),
     path('cars/',include('cars.urls')),
+    path('classroom/',include('classroom.urls')),
 ]
 #the PAGE NOT FOUND will show them in this order as it is in URLPATTERNS. DEBUG = TRUE
 

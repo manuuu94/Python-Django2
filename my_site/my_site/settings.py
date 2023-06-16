@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'my_app.apps.MyAppConfig', #directory of the installed app/name of the file/name of the config - lets the project know that it can look in this dir for templates, etc
     'office.apps.OfficeConfig',  #also tells the project to work migrations and search for models in this app.
     'cars.apps.CarsConfig',
+    'classroom.apps.ClassroomConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
