@@ -1,0 +1,37 @@
+{%extends 'chatGPT/base.html'%}
+
+{%block content%}
+    
+    <div class="container">
+
+        <h1>Environmental Questions</h1>
+
+        {%if response%}
+        <div style="border: 3px dashed blue; text-align: center;">
+            <h3>QUESTION ASKED:</h3>
+            {{questionAsked|safe}}
+            <h3>ANSWER: </h3>
+            {{response|safe}}
+        </div>
+        {%endif%}
+        
+        <div style="align-items: center;">
+                <ul>
+                    {%for question in questions%}
+            
+                    <form action="" method="post" style="text-align:start;">
+                        {%csrf_token%}
+                        <li>
+                            <input style="text-align: center;" type="text" class="form-control" name="user_input" value="{{question}}" readonly>
+                            <button style="width:100px;margin-bottom: 15px;margin-left:45%" type="submit" class="btn btn-primary mt-3">Ask</button>
+                        </li>
+                    </form>
+            
+                    {%endfor%}
+                </ul>
+        </div>
+        
+        
+        </div>
+
+{%endblock%}

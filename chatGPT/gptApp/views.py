@@ -99,3 +99,93 @@ def MathQ(request):
     return render(request,"gptApp/Math.html",context=dict)  
 
 
+def EnvQ(request): 
+    all_questions = models.EnvironmentQ.objects.all()
+    #print(all_questions)
+    dict = {"questions":all_questions}
+    response = None
+    if api_key is not None and request.method == 'POST':
+        question = request.POST.get('user_input')
+        #print(question)
+        obj = models.EnvironmentQ.objects.get(question=question)
+        #print(obj.answer) 
+        if obj.answer is None:
+            response = openai.Completion.create(
+            engine = 'text-davinci-003',
+            prompt = question,
+            max_tokens = 256,
+            #stop = ".",
+            temperature = 0.5,
+            )
+            chatgpt_response = response["choices"][0]["text"]
+            dict["response"] = chatgpt_response
+            dict["questionAsked"] = question 
+            obj.answer = chatgpt_response
+            obj.save()
+            #print(obj.answer)
+            return render(request,"gptApp/Environment.html",context=dict)        
+        dict["response"] = obj.answer   
+        dict["questionAsked"] = question
+    return render(request,"gptApp/Environment.html",context=dict)  
+
+
+def HealthQ(request): 
+    all_questions = models.HealthQ.objects.all()
+    #print(all_questions)
+    dict = {"questions":all_questions}
+    response = None
+    if api_key is not None and request.method == 'POST':
+        question = request.POST.get('user_input')
+        #print(question)
+        obj = models.HealthQ.objects.get(question=question)
+        #print(obj.answer) 
+        if obj.answer is None:
+            response = openai.Completion.create(
+            engine = 'text-davinci-003',
+            prompt = question,
+            max_tokens = 256,
+            #stop = ".",
+            temperature = 0.5,
+            )
+            chatgpt_response = response["choices"][0]["text"]
+            dict["response"] = chatgpt_response
+            dict["questionAsked"] = question 
+            obj.answer = chatgpt_response
+            obj.save()
+            #print(obj.answer)
+            return render(request,"gptApp/Health.html",context=dict)        
+        dict["response"] = obj.answer   
+        dict["questionAsked"] = question
+    return render(request,"gptApp/Health.html",context=dict)  
+
+
+
+def AnatoQ(request): 
+    all_questions = models.AnatoQ.objects.all()
+    #print(all_questions)
+    dict = {"questions":all_questions}
+    response = None
+    if api_key is not None and request.method == 'POST':
+        question = request.POST.get('user_input')
+        #print(question)
+        obj = models.AnatoQ.objects.get(question=question)
+        #print(obj.answer) 
+        if obj.answer is None:
+            response = openai.Completion.create(
+            engine = 'text-davinci-003',
+            prompt = question,
+            max_tokens = 256,
+            #stop = ".",
+            temperature = 0.5,
+            )
+            chatgpt_response = response["choices"][0]["text"]
+            dict["response"] = chatgpt_response
+            dict["questionAsked"] = question 
+            obj.answer = chatgpt_response
+            obj.save()
+            #print(obj.answer)
+            return render(request,"gptApp/Anatomy.html",context=dict)        
+        dict["response"] = obj.answer   
+        dict["questionAsked"] = question
+    return render(request,"gptApp/Anatomy.html",context=dict)  
+
