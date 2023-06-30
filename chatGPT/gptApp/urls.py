@@ -12,3 +12,4 @@ urlpatterns = [
     path('health/',views.HealthQ,name='health'),
     path('anatomy/',views.AnatoQ,name='anatomy'),
 ]
+
