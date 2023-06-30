@@ -17,13 +17,15 @@
 <div class="row">
 
           <div class="col flip-container" style="height: auto; width: auto;" >
-            <div class="flip-this">
+          <div class="flip-this">
             <img src="{% static 'my_cv/img/yo.png' %}" alt="image" 
-            style="height: 100%; width: 50%; border-radius: 10%; border: rgb(47, 47, 47) solid;">
+            style="height: 200px; border-radius: 10%; border: rgb(47, 47, 47) solid;">
           </div>
           </div>
 
-<div class="col" style="height: 100%; width: 100%;">
+ <!---->
+ <div class="col flip-container" style="height: 100%; width: 100%;">
+  <div class="flip-this">
     <table class="table table-hover" style="height: 100%; width: 100%; border: rgb(47, 47, 47) solid;">
     <tbody>
         <tr>
@@ -31,52 +33,25 @@
               Personal Data
         </th>
         </tr>   
+        {%for key,value in data.items %}
 <tr>
   <td style="background-color: black; font-size: small;  color:white"> 
-    Full name: 
+    {{key}}
   </td>
   <td style="background-color: black; font-size: small; color:white"> 
-    {{data.name}}
+    {{value}}
 </td>
 </tr> 
-<tr>
-  <td style="background-color: black; font-size: small;  color:white"> 
-    Birthdate: 
-  </td>
-  <td style="background-color: black; font-size: small; color:white"> 
-    {{data.birthDate}}
-</td>
-</tr> 
-<tr>
-  <td style="background-color:black; font-size: small; color:white"> 
-      Phone: 
-  </td>
-  <td style="background-color: black; font-size: small;color:white"> 
-    {{data.phone}}
-</td>
-</tr> 
-<tr>
-  <td style="background-color: black; font-size: small; color:white"> 
-      E-mail: 
-  </td>
-  <td style="background-color: black; font-size: small; color:white"> 
-    {{data.email}}
-</td>
-</tr> 
-<tr>
-  <td style="background-color: black; font-size: small; color:white"> 
-      Address: 
-  </td>
-  <td style="background-color: black; font-size: small; color:white"> 
-    {{data.address}}
-</td>
-</tr> 
+        {%endfor%}
       </tbody>
       </table>
       </div>
-                 
+    </div>
+              
+    <!---->
           
-          <div class="col" style="height: 100%; width: 100%;">
+          <div class="col flip-container" style="height: 100%; width: 100%;">
+            <div class="flip-this">
             <table class="table table-hover" style="height: 100%; width: 100%;border: rgb(47, 47, 47) solid;">
               <tbody>
                   <tr>
@@ -94,6 +69,7 @@
  
                 </tbody>
                 </table>
+              </div>
           </div>
 
 
@@ -104,24 +80,16 @@
 <hr style="width:100%;text-align:left;margin-left:0;border-width:5px;color:white;">
 
 <div class="container">
-    <div class="row">
-    <div class="col top2header">
-        <div class="btn-group row2" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn row2 btn-dark radial-gradient" for="btnradio1">Profile & Skills:</label>
-      
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn row2 btn-dark radial-gradient" for="btnradio2">Work Experience:</label>
-      
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn row2 btn-dark radial-gradient" style="padding:20px" for="btnradio3">Education:</label>
-        </div>
-    </div>
-    </div>
+<div class="row top2header">
+<form action="" method="POST" >
+  {% csrf_token %}
+  <button class="btn button1 btn-secondary radial-gradient2" type="submit" name="button" value="option1">Profile</button>
+  <button class="btn button1 btn-secondary radial-gradient2" type="submit" name="button" value="option2">Skills</button>
+  <button class="btn button1 btn-secondary radial-gradient2" type="submit" name="button" value="option3">Work Experience</button>
+  <button class="btn button1 btn-secondary radial-gradient2" type="submit" name="button" value="option4">Education</button>
+</form>
 </div>
-
-
-
+</div>
 
 
     {%block content%}

@@ -4,13 +4,279 @@
 {%load static%}
 <link rel="stylesheet" href="{% static 'my_cv/custom.css' %}">
 
-<div class="container">
-        <h1 class="topbody">MANU CV</h1>
+<!-- PROFILE & SKILLS -->
+{%if button == "option1" %}
 
+<div class="container topbody">
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="false">
+<div class="row">
+
+<div class="col" style="position:relative;">
+        <button style="height:20px;width:50px; left:0%; top:40%;" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+</div>
+<div class="col col-sm-3" style="width: 90%;">
+        <div class="carousel-inner">
+<!--   PROFILE -->
+          <div class="carousel-item active" style="color:white;font-size:15px;">
+           {{description}}
+          </div>
+          
+<!--   SKILLS -->
+          <div class="carousel-item" style="height: 100%; width: 100%; color:white;font-size:15px;">
+          <div class="container topheader text-center" style="height: 100%; width: 100%;">
+                <div class="row">
+                  <div class="col" style="height: 100%; width: 100%;">
+            <p>{{skills.skill0}}</p>                    
+                  </div>
+
+                  <div class="col" style="height: 100%; width: 100%;">
+          <div>              
+            <p>{{skills.skill1}}</p>
+        </div>    
+
+        <table class="table table-hover" style="border: rgb(47, 47, 47) solid;">
+        <tbody>
+                    <tr>
+                <th class="radial-gradient" style="width:70%; background-color: black;color:white">
+                          Skill:
+                </th>
+                <th class="radial-gradient" style="width:30%; background-color: black;color:white">
+                        Years of Practice:
+                </th>
+                    </tr>   
+                    
+                        {%for key,value in skillDetails.items %}
+                        <tr>
+                                <td style="background-color: black; font-size: small;  color:white"> 
+                                {{value.skill}}
+                                </td>
+                                <td style="background-color: black; font-size: small; color:white"> 
+                                {{value.yrs}}
+                                </td>
+                        </tr>
+                        {%endfor%}                   
+        </tbody>
+</table>        
+        
 </div>
 
+                  <div class="col" style="height: 100%; width: 100%;">
+            <p>{{skills.skill2}}</p>
+                  </div>
+                </div>
+          </div>
+        </div>
+        <!--WORK XP-->
+
+          <div class="carousel-item" style="width:100%; color:white;font-size:15px;">
+                <div class="container topheader text-center" style="height: 100%; width: 100%;">
+                        <div class="row">
+                                <div class="col">
+
+                {%for job in WorkXP %}
+                <p>
+                {{job}}
+                </p>
+                {%endfor%}
+        </div>
+</div>
+          </div>
+
+          </div>
+          <!--EDUCATION-->
+
+          <div class="carousel-item" style="color:white;font-size:15px;">
+                <!-- <img src="..." class="d-block w-100" alt="..."> -->
+          {{description}}         
+          </div>
+        </div>
+</div>
+
+<div class="col">
+        <button style="height:20px;width:50px; right:0%; top:40%;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+</div>
+
+</div>       
+</div>
+
+</div>
+{% endif %}
+
+<!-- SKILLS -->
+{%if button  == "option2" %}
 
 
+<div class="container topbody">
+
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="false">
+        <div class="row">
+        
+        <div class="col" style="position:relative;">
+                <button style="height:20px;width:50px; left:0%; top:40%;" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+        </div>
+        <div class="col col-sm-3" style="width: 90%;">
+                <div class="carousel-inner">
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>Profile</h2>
+                   <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                   {{description}}
+                  </div>
+        
+                  <div class="carousel-item active" style="color:white;font-size:15px;">
+                  <h2>More Skills</h2>
+                         <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}
+                  </div>
+        
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>Work Experience</h2>
+                        <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}       
+                  </div>
+        
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>Education</h2>
+                        <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}         
+                  </div>
+                </div>
+        </div>
+        
+        <div class="col">
+                <button style="height:20px;width:50px; right:0%; top:40%;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+        </div>
+        
+        </div>       
+        </div>
+        
+        </div>
+{% endif %}
+
+<!-- WORK XP -->
+{%if button  == "option3" %}
+
+
+<div class="container topbody">
+
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="false">
+        <div class="row">
+        
+        <div class="col" style="position:relative;">
+                <button style="height:20px;width:50px; left:0%; top:40%;" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+        </div>
+        <div class="col col-sm-3" style="width: 90%;">
+                <div class="carousel-inner">
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>Profile</h2>
+                   <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                   {{description}}
+                  </div>
+        
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>More Skills</h2>
+                         <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}
+                  </div>
+        
+                  <div class="carousel-item active" style="color:white;font-size:15px;">
+                  <h2>Work Experience</h2>
+                        <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}       
+                  </div>
+        
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>Education</h2>
+                        <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}         
+                  </div>
+                </div>
+        </div>
+        
+        <div class="col">
+                <button style="height:20px;width:50px; right:0%; top:40%;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+        </div>
+        
+        </div>       
+        </div>
+        
+        </div>
+{% endif %}
+
+
+<!-- EDUCATION -->
+{%if button  == "option4" %}
+
+<div class="container topbody">
+
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="false">
+        <div class="row">
+        
+        <div class="col" style="position:relative;">
+                <button style="height:20px;width:50px; left:0%; top:40%;" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+        </div>
+        <div class="col col-sm-3" style="width: 90%;">
+                <div class="carousel-inner">
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>Profile</h2>
+                   <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                   {{description}}
+                  </div>
+        
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>More Skills</h2>
+                         <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}
+                  </div>
+        
+                  <div class="carousel-item" style="color:white;font-size:15px;">
+                  <h2>Work Experience</h2>
+                        <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}       
+                  </div>
+        
+                  <div class="carousel-item active" style="color:white;font-size:15px;">
+                  <h2>Education</h2>
+                        <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                  {{description}}         
+                  </div>
+                </div>
+        </div>
+        
+        <div class="col">
+                <button style="height:20px;width:50px; right:0%; top:40%;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+        </div>
+        
+        </div>       
+        </div>
+        
+        </div>
+
+{% endif %}
 
 
 

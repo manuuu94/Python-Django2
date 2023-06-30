@@ -1,5 +1,7 @@
 .topheader{
     margin-top:2%;
+    margin-left: auto;
+    margin-right: auto;
     
 }
 
@@ -11,6 +13,8 @@
 .top2header{
     margin-top:0%;
     text-align: center;
+    height: 100%;
+    width: 100%;
 }
 
 
@@ -20,22 +24,33 @@
 }
 
 .topbody{
-    margin-top: 5%;
+    margin-top: 2%;
     text-align: center;
+    width: auto;
+    height: auto;
 }
 
 
 body{
     background-color: rgb(0, 0, 0);
+    
 }
 
 .radial-gradient {
 background-repeat:no-repeat;
 background-size: 100% 100%;
 background-image: radial-gradient(farthest-corner at 40px 40px,
-      #000000 10%, #333 100%,#ffffff 100%);
+      #000000 10%, #433d3d 80%,#3f3f3f 100%);
 }
 
+
+.radial-gradient2 {
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    background-image: radial-gradient(farthest-corner at 40px 40px,
+          #171717 5%, #3c3a3a 88%,#575757 100%);
+    }
+    
 .flip-container {
     background: transparent;
     display: inline-block;
@@ -53,3 +68,10 @@ background-image: radial-gradient(farthest-corner at 40px 40px,
     transition: 0.9s;
     transform: rotateY(360deg);
   }
+
+button.button1{
+    width: auto;
+    height: auto;
+    
+}
+
