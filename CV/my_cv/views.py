@@ -103,7 +103,6 @@ def Education():
                 imgBasePath = os.path.basename(img)
                 new_dict[indexEducation] ={"academy":education.institution,"description":education.description,"status":education.status,"progress":education.progress,"cert":imgBasePath}
                 indexEducation = indexEducation+1
-        print(new_dict)
         return new_dict
 
 def skillDetailsfunction():
