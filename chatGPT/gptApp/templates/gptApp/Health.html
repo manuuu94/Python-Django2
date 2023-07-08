@@ -3,34 +3,49 @@
 {%block content%}
     
     <div class="container">
+        <div style="text-align: center;">
 
         <h1>Health Questions:</h1>
-       
-{%if response%}
-<div style="border: 3px dashed blue; text-align: center;">
-    <h3>QUESTION ASKED:</h3>
-    {{questionAsked|safe}}
-    <h3>ANSWER: </h3>
-    {{response|safe}}
-</div>
-{%endif%}
+        </div>
+        {%if response%}
+        <div class="container">
+        <div row>
+        <div style="border: 3px dashed blue; text-align: center;">
+            <h3>QUESTION ASKED:</h3>
+            {{questionAsked|safe}}
+            <h3>ANSWER: </h3>
+            {{response|safe}}
+        </div>
+        </div>
+        </div>
+        {%endif%}
+        
+        
+        <div class="container" style="position: absolute; max-height: 500px; overflow-y: auto;">
 
-<div style="align-items: center;">
-        <ul>
             {%for question in questions%}
-    
-            <form action="" method="post" style="text-align:start;">
+                <form action="" method="post" style="text-align:start;">
                 {%csrf_token%}
-                <li>
-                    <input style="text-align: center;" type="text" class="form-control" name="user_input" value="{{question}}" readonly>
-                    <button style="width:100px;margin-bottom: 15px;margin-left:45%" type="submit" class="btn btn-primary mt-3">Ask</button>
-                </li>
+            
+            <div class="row">
+            <div class="col-7" style="margin-top: 15px; margin-left: 12%;">
+            
+                <input class="form-control" style="text-align: center;" type="text" name="user_input" value="{{question}}" readonly>
+            
+            </div>
+            <div class="col-3">
+            
+                <button style="width:100px;margin-left:auto;margin-bottom: 5%;" type="submit" class="btn btn-primary mt-3">Ask</button>
+            
+            </div>
+            </div>
             </form>
-    
             {%endfor%}
-        </ul>
-</div>
-             
-    </div>
+        </div>
+    
+        
+        
+                     
+            </div>
 
 {%endblock%}

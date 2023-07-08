@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from . import models
+from chatGPT.views import categories, addCategories
 import openai,os
 from dotenv import load_dotenv
 load_dotenv()
@@ -8,7 +9,26 @@ load_dotenv()
 api_key = os.getenv("OPENAI_KEY",None)
 openai.api_key = api_key 
 
+def allQuestions(request):
+    dict = {}
+    print("jiij")
+    if request.method == 'POST' and request.POST.get('inputnav'):       
+        print("yes")
+        return redirect('gptApp:AllQuestions')
 
+#this is to be able to add and show all categories from every tab in the navbar
+    if request.method == 'POST' and request.POST.get('input'):
+        addCategories(request)
+        return redirect('gptApp:AllQuestions')
+    dict["categories"] = categories()
+    return render(request,'gptApp/AllQuestions.html', context = dict)
+
+
+    
+        
+
+
+#####
 def Index(request): 
     all_questions = models.RandQ.objects.all()
     #print(all_questions)
@@ -37,7 +57,6 @@ def Index(request):
         dict["response"] = obj.answer   
         dict["questionAsked"] = question
     return render(request,"gptApp/Index.html",context=dict)  
-
 
 def AnimalsQ(request): 
     all_questions = models.AnimalsQ.objects.all()
@@ -68,7 +87,6 @@ def AnimalsQ(request):
         dict["questionAsked"] = question
     return render(request,"gptApp/Animals.html",context=dict)  
 
-
 def MathQ(request): 
     all_questions = models.MathQ.objects.all()
     #print(all_questions)
@@ -97,7 +115,6 @@ def MathQ(request):
         dict["response"] = obj.answer   
         dict["questionAsked"] = question
     return render(request,"gptApp/Math.html",context=dict)  
-
 
 def EnvQ(request): 
     all_questions = models.EnvironmentQ.objects.all()
@@ -128,7 +145,6 @@ def EnvQ(request):
         dict["questionAsked"] = question
     return render(request,"gptApp/Environment.html",context=dict)  
 
-
 def HealthQ(request): 
     all_questions = models.HealthQ.objects.all()
     #print(all_questions)
@@ -157,8 +173,6 @@ def HealthQ(request):
         dict["response"] = obj.answer   
         dict["questionAsked"] = question
     return render(request,"gptApp/Health.html",context=dict)  
-
-
 
 def AnatoQ(request): 
     all_questions = models.AnatoQ.objects.all()

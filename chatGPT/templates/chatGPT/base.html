@@ -10,39 +10,46 @@
 
 
 </head>
-<body>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-primary">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'chatGPT'%}">Ask Me Anything</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
+{%load static%}
+<link rel="stylesheet" href="{% static 'gptApp/custom.css' %}">
 
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:Index'%}">Random Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:animals'%}">Animal Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:math'%}">Math Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:environment'%}">Environment Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:health'%}">Health Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:anatomy'%}">Anatomy Qs</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+    <body style="position: relative;">
+
+
+      <nav class="navbar navbar-expand-lg bg-success ">
+  <div class="container-fluid">
+    <!-- main search function -->
+    <a class="navbar-brand" style="color: aliceblue;" href="{% url 'chatGPT'%}">???</a>
+    <!--resize toggler-->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="color: aliceblue;"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-wrap" id="navbarScroll">
+
+      <form method="POST" action="">
+        {% csrf_token %}
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          {% for key, value in categories.items %}
+            <li class="nav-item">
+        <!--      <a class="nav-link active" style="color: aliceblue;" href="{% url 'gptApp:AllQuestions' %}">{{ value.name }}</a> -->
+              <button class="btn btn-outline-dark" type="submit" name="inputnav" value="{{value.id}}" >{{ value.name }}</button>
+
+            </li>
+
+          {% endfor %}
+        </ul>
+      </form>
+      
+
+
+      <form class="d-flex" role="search" method="POST" action="" style="margin-left:auto;">
+        {%csrf_token%}
+        <input class="form-control me-2" name="input" type="search" placeholder="Add" aria-label="Search">
+        <button class="btn btn-outline-dark" type="submit" style="width: 300px;">Add New Category</button>
+      </form>
+    </div>
+  </div>
+</nav>
 
         {%block content%}
 
@@ -52,3 +59,21 @@
 
 </body>
 </html>
+
+
+<!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu">
+            {% for key,value in categories.items %}
+            <li><a class="dropdown-item" href="{% url 'gptApp:AllQuestions'%}">{{value.name}}</a></li>
+            {% endfor %}
+
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+-->

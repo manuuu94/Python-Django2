@@ -11,5 +11,10 @@ urlpatterns = [
     path('environment/',views.EnvQ,name='environment'),
     path('health/',views.HealthQ,name='health'),
     path('anatomy/',views.AnatoQ,name='anatomy'),
+    path('questions/',views.allQuestions,name='AllQuestions'),
+
+
 ]
+
+
 
