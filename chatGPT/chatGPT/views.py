@@ -12,36 +12,51 @@ openai.api_key = api_key
 
 def chatGPT(request):
     dict = {}
-    
+    dict["categories"] = categories()
+
+    if request.method == 'POST' and request.POST.get('deletebtn'):
+        deleteQuestions(request.POST.get('deletebtn'))
+        dict["questions"] = questions(request.session.get(('idValue'),None))
+        return render(request,'gptApp/AllQuestions.html', context = dict)
+    if request.method == 'POST' and request.POST.get('editbtn'):
+        #deleteQuestions(request.POST.get('deletebtn'))
+        print("yes")
+        dict["questions"] = questions(request.session.get(('idValue'),None))
+        return render(request,'gptApp/AllQuestions.html', context = dict)
     if api_key is not None and request.method == 'POST' and request.POST.get('user_input'):
         api(request)
         return redirect('chatGPT')
     if request.method == 'POST' and request.POST.get('input'):
-        addCategories(request)
+        addCategory(request)
         return redirect('chatGPT')
     dict["response"] = request.session.get('chatgpt_response',None)
-    dict["categories"] = categories()
+    
     if request.method == 'POST' and request.POST.get('inputnav'):   
         idValue = request.POST.get('inputnav')
         dict["id"] = idValue
         request.session['idValue'] = idValue
         dict["questions"] = questions(idValue)
         return render(request,'gptApp/AllQuestions.html', context = dict)
+    
     if api_key is not None and request.method == 'POST' and request.POST.get('user_input2'):
         dict["questions"] = questions(request.session.get(('idValue'),None))
         apiAllQ(request)
         dict["response2"] = request.session.get('chatgpt_response2',None)
+        dict["questionAsked"] = request.POST.get('user_input2')
         return render(request,'gptApp/AllQuestions.html', context = dict)
     return render(request,'chatGPT/main.html', context = dict)
 
 
+def deleteQuestions(value):
+    obj = models.Question.objects.get(id=value)
+    obj.delete()
 
 def questions(idValue):
     questions = models.Question.objects.filter(categoryId = idValue).all()
     dict = {}
     index = 0
     for question in questions:
-        dict[f"question{index}"] = {"question":question.question, "id":question.categoryId}
+        dict[f"question{index}"] = {"id":question.id, "question":question.question, "idCat":question.categoryId}
         index = index+1  
     return dict
 
@@ -59,7 +74,7 @@ def countCategories():
         index = index+1
     return index
 
-def addCategories(request):
+def addCategory(request):
         name = request.POST.get('input')
         index = 0
         index = countCategories()+1

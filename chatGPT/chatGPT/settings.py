@@ -85,7 +85,7 @@ DATABASES = {
 DATABASES = {
      'default': {
          'ENGINE': 'djongo',
-         'NAME': 'ChatGPT',
+         'NAME': 'ChatApp',
      }
  }
 

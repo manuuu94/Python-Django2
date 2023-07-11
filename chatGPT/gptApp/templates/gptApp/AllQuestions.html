@@ -5,14 +5,12 @@
 
 
     
-<div class="container">
-    <div style="text-align: center;">
+<div class="container" style="padding-top: 2%;">
 
-    </div>
     {%if response2%}
-    <div class="container">
-    <div row>
-    <div style="border: 3px dashed green; text-align: center;">
+    <div class="container" style="width:100%; position: relative; padding-right: 0%;">
+    <div class="row">
+    <div style="border: 3px solid black; text-align: center;">
         <h3>QUESTION ASKED:</h3>
         {{questionAsked|safe}}
         <h3>ANSWER: </h3>
@@ -22,25 +20,57 @@
     </div>
     {%endif%}
     
-    <div class="container" style="position: absolute; max-height: 500px; overflow-y: auto;">
+    <div class="container" style="position: absolute; background-color: rgb(117, 181, 135); max-height: 420px; width: 100%; overflow-y: auto;">
+        {% for key, value in questions.items %}
+        <div>
+          <form action="" method="POST" style="text-align: start;">
+            {% csrf_token %}
+            <div class="row" style="border: 3px solid black">
+              <div class="col-7 d-flex justify-content-center" style="margin-top: 1%; margin-bottom:1%; ">
+                <textarea class="form-control" style="resize: none; height: auto; background-color: rgb(117, 181, 135);" name="user_input2" readonly>{{ value.question }}</textarea>
+              </div>
+              <div class="col-auto d-flex align-items-center justify-content-center">
+                <button style="width: 60px; margin-bottom:20px" type="submit" class="btn btn-dark mt-3"><i class='fa fa-question' style="font-size: 24px;"></i></button>
+              </div>
+              <div class="col-auto d-flex align-items-center justify-content-center">
+                <button type="button" class="btn btn-dark mt-3" id="myBtn_{{value.id}}" style="width: 60px; margin-bottom:20px"><i class="fa fa-edit" style="font-size: 24px;"></i></button>
+              </div>
 
-    {%for key,value in questions.items %}
-        <form action="" method="POST" style="text-align:start;">
-        {%csrf_token%}
-    
-    <div class="row">
-    <div class="col-7" style="margin-top: 15px; margin-left: 12%;">
-    
-        <input class="form-control" style="text-align: center;" type="text" name="user_input2" value="{{value.question}}" readonly>
-    
-    </div>
-    <div class="col-3">
-        <button style="width:100px;margin-left:auto;margin-bottom: 5%;" type="submit" class="btn btn-dark mt-3">Ask</button>
-    </div>
-    </div>
-    </form>
-    {%endfor%}
-</div>
+              <div class="col-auto d-flex align-items-center justify-content-center">
+                <button style="width: 60px; margin-bottom:20px" type="submit" name="deletebtn" value="{{value.id}}" class="btn btn-dark mt-3"><i class="fa fa-trash" style="font-size: 24px;"></i></button>
+              </div>
+
+
+            </div>
+          </form>
+      
+          <!-- The Modal -->
+          <div id="myModal_{{value.id}}" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content" style="display: flex; justify-content: center; align-items: center;">
+              <span class="close" style="color:green">&times;</span>
+          
+              <form action="" method="POST" style="text-align: start; width: auto; height: auto;">
+                {% csrf_token %}
+                <div class="row" style="border: 3px solid black; width:auto; height: 200px;">
+                  <div class="col d-flex justify-content-center" style="margin-top: 1%; margin-bottom:1%; width: auto;">
+                    <textarea class="form-control" style="resize: none; height: auto; background-color: rgb(117, 181, 135);" name="edit">{{ value.question }}</textarea>
+                  </div>
+                  <div class="col-auto d-flex align-items-center justify-content-center">
+                    <button style="width: 60px; margin-bottom:20px" type="submit" class="btn btn-dark mt-3"><i class='fa fa-edit' style="font-size: 24px;"></i></button>
+                  </div>
+                </div>
+              </form>
+          
+            </div>
+          </div>
+          
+          
+      
+        </div>
+        {% endfor %}
+      </div>
+      
 
     
                  
@@ -48,7 +78,35 @@
 
 
 
-
+        <script>
+            // Get all the buttons and modals
+            var buttons = document.querySelectorAll('[id^="myBtn_"]');
+            var modals = document.querySelectorAll('[id^="myModal_"]');
+        
+            // Assign event handlers to each button and modal
+            buttons.forEach(function(button) {
+                var modalId = button.id.replace("myBtn_", "");
+                var modal = document.getElementById("myModal_" + modalId);
+                var span = modal.getElementsByClassName("close")[0];
+        
+                button.onclick = function() {
+                    modal.style.display = "block";
+                }
+        
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+            });
+        
+            // Attach the window.onclick event handler
+            window.onclick = function(event) {
+                modals.forEach(function(modal) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                });
+            };
+            </script>
 
 
 {%endblock%}

@@ -11,5 +11,11 @@ if __name__ == '__main__':
             "Couldn't import Django. Are you sure it's installed and "
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
-        ) from exc
+        ) from exc 
+    if sys.argv[1] == 'migrate':
+        from django.conf import settings
+        from django.db.migrations import AlterField
+        if settings.DATABASES['default']['ENGINE'] == 'djongo':
+            AlterField.database_forwards = lambda *_: None
+            AlterField.database_backwards = lambda *_: None
     execute_from_command_line(sys.argv)
