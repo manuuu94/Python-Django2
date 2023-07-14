@@ -13,14 +13,30 @@ openai.api_key = api_key
 def chatGPT(request):
     dict = {}
     dict["categories"] = categories()
-
-    if request.method == 'POST' and request.POST.get('deletebtn'):
-        deleteQuestions(request.POST.get('deletebtn'))
+    if request.method == 'POST' and request.POST.get('delqtsbtn'):
+        value = request.session.get(('idValue'),None)
+        deleteAllQuestios(value)
         dict["questions"] = questions(request.session.get(('idValue'),None))
         return render(request,'gptApp/AllQuestions.html', context = dict)
+
+    if request.method == 'POST' and request.POST.get('delctybtn'):
+        value = request.session.get(('idValue'),None)
+        deleteAllQuestios(value)
+        deleteCategory(value)
+        return redirect('chatGPT')
+       
+    if request.method == 'POST' and request.POST.get('addinput'):
+        addQuestion(request)
+        dict["questions"] = questions(request.session.get(('idValue'),None))
+        return render(request,'gptApp/AllQuestions.html', context = dict)
+
+    if request.method == 'POST' and request.POST.get('deletebtn'):
+        deleteQuestion(request.POST.get('deletebtn'))
+        dict["questions"] = questions(request.session.get(('idValue'),None))
+        return render(request,'gptApp/AllQuestions.html', context = dict)
+    
     if request.method == 'POST' and request.POST.get('editbtn'):
-        #deleteQuestions(request.POST.get('deletebtn'))
-        print("yes")
+        editQuestion(request)
         dict["questions"] = questions(request.session.get(('idValue'),None))
         return render(request,'gptApp/AllQuestions.html', context = dict)
     if api_key is not None and request.method == 'POST' and request.POST.get('user_input'):
@@ -29,8 +45,7 @@ def chatGPT(request):
     if request.method == 'POST' and request.POST.get('input'):
         addCategory(request)
         return redirect('chatGPT')
-    dict["response"] = request.session.get('chatgpt_response',None)
-    
+    dict["response"] = request.session.get('chatgpt_response',None)   
     if request.method == 'POST' and request.POST.get('inputnav'):   
         idValue = request.POST.get('inputnav')
         dict["id"] = idValue
@@ -46,8 +61,18 @@ def chatGPT(request):
         return render(request,'gptApp/AllQuestions.html', context = dict)
     return render(request,'chatGPT/main.html', context = dict)
 
+def addQuestion(request):
+    models.Question.objects.create(id=getEmptyId(),
+    question=request.POST.get('addinput'),
+    categoryId=request.session.get(('idValue'),None))
 
-def deleteQuestions(value):
+def getEmptyId():
+    index = 1
+    while len(models.Question.objects.filter(id=index).all()) > 0:
+        index = index+1
+    return index
+            
+def deleteQuestion(value):
     obj = models.Question.objects.get(id=value)
     obj.delete()
 
@@ -107,3 +132,16 @@ def apiAllQ(request):
         )
         chatgpt_response = response["choices"][0]["text"]
         request.session['chatgpt_response2'] = chatgpt_response
+
+def editQuestion(request):
+    print()
+    obj = models.Question.objects.get(id=request.POST.get('editbtn'))
+    obj.question = request.POST.get('edit')
+    obj.save()
+
+def deleteAllQuestios(value):
+    models.Question.objects.filter(categoryId=value).delete()
+
+def deleteCategory(value):
+    models.Category.objects.filter(id=value).delete()
+

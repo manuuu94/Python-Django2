@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RandQ, AnimalsQ, MathQ, EnvironmentQ, AnatoQ, HealthQ , Category, Question
+from .models import Category, Question
 
 # Register your models here.
 '''
