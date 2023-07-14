@@ -7,42 +7,70 @@
     <title>ChatGPT</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
-<body>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-primary">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'chatGPT'%}">Ask Me Anything</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
 
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:Index'%}">Random Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:animals'%}">Animal Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:math'%}">Math Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:environment'%}">Environment Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:health'%}">Health Qs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'gptApp:anatomy'%}">Anatomy Qs</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+{%load static%}
+<link rel="stylesheet" href="{% static 'gptApp/custom.css' %}">
+
+
+    <body style="position: relative;">
+
+
+      <nav class="navbar navbar-expand-lg bg-success ">
+  <div class="container-fluid">
+    <!-- main search function -->
+    <a class="navbar-brand" style="color: aliceblue;" href="{% url 'chatGPT'%}">Quick Questions</a>
+    <!--resize toggler-->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+    data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" 
+    aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="color: aliceblue;"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-wrap" id="navbarScroll">
+
+      <form method="POST" action="">
+        {% csrf_token %}
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          {% for key, value in categories.items %}
+            <li class="nav-item">
+              <button class="btn btn-outline-dark" type="submit" 
+              name="inputnav" value="{{value.id}}" >{{ value.name }}</button>
+            </li>
+
+          {% endfor %}
+        </ul>
+      </form>
+      
+
+
+      <form class="d-flex" role="search" method="POST" action="" style="margin-left:auto;">
+        {%csrf_token%}
+        <input class="form-control me-2" id="input" name="input" type="search" placeholder="Add" aria-label="Search">
+        <button class="btn btn-outline-dark" onclick="addcty(event)" type="submit" style="width: 300px;">Add New Category</button>
+      </form>
+
+      <script>        
+        function addcty(event) {
+          let input = document.getElementById("input").value;
+          if (input.trim() === "") {
+            Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: 'Please enter a valid category!'
+      });
+            event.preventDefault();
+          }
+        };
+      </script>
+
+    </div>
+  </div>
+</nav>
 
         {%block content%}
 
@@ -51,4 +79,6 @@
         {%endblock%}
 
 </body>
+
 </html>
+
